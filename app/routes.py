@@ -30,12 +30,12 @@ def signup():
         cur.execute("SELECT mail FROM user where mail = %s",(email,))
         maillist = cur.fetchone()
         print(maillist)
-        if maillist[0] == email:
-        # cur.execute("INSERT INTO user(full_name, mail, password, verified) VALUES(%s, %s, %s,%s)", (name, email, password, verified))
-        # mysql.connection.commit()
-        # cur.close
-        # flash('You are now registered and may login.', 'success')
-        redirect(url_for('dashboard'))
+        # if maillist[0] == email:
+        cur.execute("INSERT INTO user(full_name, mail, password, verified) VALUES(%s, %s, %s,%s)", (name, email, password, verified))
+        mysql.connection.commit()
+        cur.close
+        flash('You are now registered and may login.', 'success')
+        # redirect(url_for('dashboard'))
 
         return redirect(url_for('login'))
         
