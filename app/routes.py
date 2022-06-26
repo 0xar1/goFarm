@@ -70,3 +70,8 @@ def login():
 def dashboard():
     # return render_template('dashboard.html', title='Dashboard')
     return render_template('dashboard.html',title='Dashboard - goFarm')
+
+@app.route('/logo')
+def logo():
+    # return render_template('dashboard.html', title='Dashboard')
+    return render_template('logo.html'  )

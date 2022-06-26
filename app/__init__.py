@@ -11,4 +11,6 @@ app.config.from_object(Config)
 #importing the routes.py file
 from app import routes
 
+
+
 # app.debug(True)   
