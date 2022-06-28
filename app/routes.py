@@ -25,11 +25,12 @@ def signup():
         email = form.email.data
         password = str(encrypt(form.password.data))
         verified = 0
-
         cur = mysql.connection.cursor() 
         cur.execute("SELECT mail FROM user where mail = %s",(email,))
         maillist = cur.fetchone()
-        print(maillist)
+        # print(maillist)
+        
+        
         # if maillist[0] == email:
         cur.execute("INSERT INTO user(full_name, mail, password, verified) VALUES(%s, %s, %s,%s)", (name, email, password, verified))
         mysql.connection.commit()
@@ -66,7 +67,7 @@ def login():
     return render_template('login.html', title='SignIn - goFarm', form=form)
   
 
-@app.route('/dashboard')
+@app.route('/dashboard/dashboard')
 def dashboard():
     # return render_template('dashboard.html', title='Dashboard')
     return render_template('dashboard.html',title='Dashboard - goFarm')
@@ -74,4 +75,4 @@ def dashboard():
 @app.route('/logo')
 def logo():
     # return render_template('dashboard.html', title='Dashboard')
-    return render_template('logo.html'  )
+    return render_template('/new/logo.html'  )
