@@ -5,8 +5,8 @@ from app import app
 from app.forms import LoginForm, RegisterForm
 from app.passwordhasher import decrypt, encrypt
 
-app.config['MYSQL_USER'] = 'arwell'
-app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'arun@mysql4444'
 app.config['MYSQL_DB'] = 'app'
 app.config['MYSQL_HOST'] = 'localhost'
 
@@ -67,10 +67,10 @@ def login():
     return render_template('login.html', title='SignIn - goFarm', form=form)
   
 
-@app.route('/dashboard/dashboard')
+@app.route('/dashboard')
 def dashboard():
     # return render_template('dashboard.html', title='Dashboard')
-    return render_template('dashboard.html',title='Dashboard - goFarm')
+    return render_template('/dashboard/dashboard.html',title='Dashboard - goFarm')
 
 @app.route('/logo')
 def logo():
