@@ -8,3 +8,4 @@ def decrypt(password,hash):
     password_decrypted = sha256_crypt.verify(password,hash)
     return password_decrypted
 
+# gib me credits 0xar1.github.io

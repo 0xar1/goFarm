@@ -67,10 +67,10 @@ def login():
     return render_template('login.html', title='SignIn - goFarm', form=form)
   
 
-@app.route('/dashboard/dashboard')
+@app.route('/dashboard')
 def dashboard():
     # return render_template('dashboard.html', title='Dashboard')
-    return render_template('dashboard.html',title='Dashboard - goFarm')
+    return render_template('/dashboard/dashboard.html',title='Dashboard - goFarm')
 
 @app.route('/logo')
 def logo():
