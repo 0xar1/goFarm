@@ -5,8 +5,8 @@ from app import app
 from app.forms import LoginForm, RegisterForm
 from app.passwordhasher import decrypt, encrypt
 
-app.config['MYSQL_USER'] = 'arwell'
-app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'arun@mysql4444'
 app.config['MYSQL_DB'] = 'app'
 app.config['MYSQL_HOST'] = 'localhost'
 
