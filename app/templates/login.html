@@ -1,31 +1,30 @@
-
 {% extends "base1.html" %}
 {% block css %}
-    <style>
-        .pad{
-            margin-top: 5rem;
-        }
-    </style>
+<style>
+  .pad {
+    margin-top: 5rem;
+  }
+</style>
 {% endblock %}
 
 {% block body %}
 <div class="container pad">
-<!-- Section: Design Block -->
-<section class="text-center">
+  <!-- Section: Design Block -->
+  <section class="text-center">
     <!-- Background image -->
     <div class="p-5 bg-image" style="
           background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
           height: 300px;
           "></div>
     <!-- Background image -->
-  
+
     <div class="card mx-4 mx-md-5 shadow-5-strong" style="
           margin-top: -100px;
           background: hsla(0, 0%, 100%, 0.8);
           backdrop-filter: blur(30px);
           ">
       <div class="card-body py-5 px-md-5">
-  
+
         <div class="row d-flex justify-content-center">
           <div class="col-lg-8">
             <h2 class="fw-bold mb-5">Sign In now</h2>
@@ -51,7 +50,7 @@
                 {{ form.email(class_="form-control")}}
                 <label class="form-label" for="form3Example3">Email address</label>
               </div>
-  
+
               <!-- Password input -->
               <div class="form-outline mb-4">
                 {{ form.password(class_="form-control")}}
@@ -64,13 +63,13 @@
                   Remember Me
                 </label>
               </div>
-  
+
               <!-- Submit button -->
               {{ form.submit(class_ ="btn btn-primary btn-block mb-4") }}
-                Sign In
+              Sign In
               </button>
-  
-             
+
+
             </form>
           </div>
         </div>
@@ -79,4 +78,4 @@
   </section>
   <!-- Section: Design Block -->
 </div>
-  {% endblock %}
+{% endblock %}
