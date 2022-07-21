@@ -3,7 +3,7 @@ import MySQLdb.cursors
 import timeit
 start = timeit.default_timer()
 connection = MySQLdb.connect(
-        host="localhost", user="arwell", passwd="password", db='app', 
+        host="localhost", user="root", passwd="passwordroot69", db='app', 
         cursorclass=MySQLdb.cursors.SSCursor) # put the cursorclass here
 cursor = connection.cursor()
 cursor.execute('SELECT * FROM user;')

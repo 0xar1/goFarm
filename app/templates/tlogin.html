@@ -1,0 +1,81 @@
+{% extends "base1.html" %}
+{% block css %}
+<style>
+  .pad {
+    margin-top: 5rem;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container pad">
+  <!-- Section: Design Block -->
+  <section class="text-center">
+    <!-- Background image -->
+    <div class="p-5 bg-image" style="
+          background-image: url('https://mdbootstrap.com/img/new/textures/full/171.jpg');
+          height: 300px;
+          "></div>
+    <!-- Background image -->
+
+    <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+          margin-top: -100px;
+          background: hsla(0, 0%, 100%, 0.8);
+          backdrop-filter: blur(30px);
+          ">
+      <div class="card-body py-5 px-md-5">
+
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-8">
+            <h2 class="fw-bold mb-5">Sign In now</h2>
+            <form method="POST">
+              <!-- TODO 2 column grid layout with text inputs for the first and last names
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <input type="text" id="form3Example1" class="form-control" />
+                    <label class="form-label" for="form3Example1">First name</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <input type="text" id="form3Example2" class="form-control" />
+                    <label class="form-label" for="form3Example2">Last name</label>
+                  </div>
+                </div>
+              </div> -->
+              {{ form.hidden_tag() }}
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                {{ form.email(class_="form-control")}}
+                <label class="form-label" for="form3Example3">Email address</label>
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                {{ form.password(class_="form-control")}}
+                <label class="form-label" for="form3Example4">Password</label>
+              </div>
+              <!-- Checkbox -->
+              <div class="form-check d-flex justify-content-center mb-4">
+                {{ form.remember_me(class_="form-check-input me-2") }}
+                <label class="form-check-label" for="form2Example33">
+                  Remember Me
+                </label>
+              </div>
+
+              <!-- Submit button -->
+              {{ form.submit(class_ ="btn btn-primary btn-block mb-4") }}
+              Sign In
+              </button>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Section: Design Block -->
+</div>
+{% endblock %}
