@@ -1,2 +1,2 @@
-..\R0.1\env\Scripts\activate.bat
-..\R0.1\env\Scripts\activate.ps1
+..\env\Scripts\activate.bat
+..\env\Scripts\activate.ps1

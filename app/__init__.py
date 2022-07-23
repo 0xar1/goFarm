@@ -7,16 +7,22 @@ app = Flask(__name__)
 #importing the secret key file
 app.config.from_object(Config)
 
+#SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+db = SQLAlchemy(app)
+migrate = Migrate(app,db)
 
-#importing the routes.py file
-from app import routes
+#flask login
+from flask_login import LoginManager
+login = LoginManager(app)
+login.login_view = 'auth.login'
 
+#importing all routes,models and blueprints
+from app import routes,models
 from app.blueprints.auth import auth 
 app.register_blueprint(auth)
 
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'passwordroot69'
-app.config['MYSQL_DB'] = 'app'
-app.config['MYSQL_HOST'] = 'localhost'
+
 
 # app.debug(True)   
