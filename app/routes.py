@@ -21,3 +21,8 @@ def dashboard():
 def logo():
     # return render_template('dashboard.html', title='Dashboard')
     return render_template('/new/logo.html'  )
+
+@app.route('/auction')
+@login_required
+def auction():
+    return render_template('auction.html',title="Auction - goFarm")
