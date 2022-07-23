@@ -1,4 +1,4 @@
-from app import db,login
+from . import db,login
 from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -27,6 +27,7 @@ class User(UserMixin,db.Model):
 @login.user_loader
 def load_user(uid):
     return User.query.get(int(uid))
+
 class Crops(db.Model):
     name = db.Column(db.String(50))
     cropId = db.Column(db.Integer, primary_key = True)

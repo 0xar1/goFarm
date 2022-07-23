@@ -1,12 +1,10 @@
 from flask import Blueprint,redirect,url_for, render_template,flash
-from flask_mysqldb import MySQL
 from flask_login import current_user,login_user,logout_user
 from ..models import *
-from .. import app
+from flask import current_app as app
 from ..forms import LoginForm, RegisterForm
-from ..passwordhasher import decrypt, encrypt
 
-auth = Blueprint('auth', __name__,template_folder='templates')
+auth = Blueprint('auth', __name__,template_folder='authTemplate')
 
 # app.config['MYSQL_USER'] = 'root'
 # app.config['MYSQL_PASSWORD'] = 'passwordroot69'
