@@ -13,7 +13,7 @@ class RegisterForm(FlaskForm):
     fullname = StringField('Username',validators=[InputRequired(), Length(max=50)]) 
     email = StringField('Email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
     password = PasswordField('Password', validators=[InputRequired(), Length(max=50)])
-    confirm = PasswordField('Confirm Password',validators=[InputRequired(), EqualTo('password')])
+    confirm = PasswordField('Confirm Password',validators=[InputRequired(), EqualTo('password',message='Passwords must match.')])
     accept_tos = BooleanField('I accept the User Agreement', validators=[InputRequired()])
     submit = SubmitField('Register')
 

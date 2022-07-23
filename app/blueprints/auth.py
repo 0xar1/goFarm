@@ -1,7 +1,7 @@
 from flask import Blueprint,redirect,url_for, render_template,flash
 from flask_mysqldb import MySQL
 from flask_login import current_user,login_user,logout_user
-from ..models import User
+from ..models import *
 from .. import app
 from ..forms import LoginForm, RegisterForm
 from ..passwordhasher import decrypt, encrypt
