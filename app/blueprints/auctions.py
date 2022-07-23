@@ -19,7 +19,7 @@ def auction():
 @auctions.route('/buy')
 @login_required
 def buy():
-    return render_template('buy.html',title="Buy - goFarm")
+    return render_template('buy.html',title="Buy - goFarm",data = Crops.query.all())
 
 
 

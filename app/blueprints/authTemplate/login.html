@@ -3,13 +3,20 @@
 <div class="app-auth-body mx-auto">	
     <div class=" mb-4"><h1 class="fw-bold text-primary m-3">go<span class="text-secondary">Farm</span></h1></div>
     <h2 class="auth-heading text-center mb-5">Log in to Dashboard</h2>
-
+    {% with messages = get_flashed_messages() %}
+     {% if messages %}
+    
+    {% for message in messages %}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Error</strong> You should check in on some of those fields below.
+        {{ message }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
           
         </button>
       </div>
+    {% endfor %}
+    
+  {% endif %}
+{% endwith %}
 
     <div class="auth-form-container text-start">
         <form method="POST" class="auth-form login-form">  
@@ -18,7 +25,7 @@
                 <label class="sr-only" for="signin-email">Email</label>
                 {{ form.email(placeholder='Email',class_="form-control signin-email")}}
                 {% for error in form.email.errors %}
-                <span style="color: red;">[{{ error }}]</span>
+                <span style="color: red;">{{ error }}</span>
                 {% endfor %}
                 
             </div><!--//form-group-->

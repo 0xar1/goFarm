@@ -25,31 +25,24 @@
 								<thead>
 								  <tr>
 									<th scope="col">#</th>
-									<th scope="col">First</th>
-									<th scope="col">Last</th>
-									<th scope="col">Handle</th>
+									<th scope="col">Crop</th>
+									<th scope="col">Variety</th>
+									<th scope="col">Dummy</th>
 								  </tr>
 								</thead>
+								
 								<tbody>
-								  <tr>
-									<th scope="row">1</th>
-									<td>Mark</td>
-									<td>Otto</td>
-									<td>@mdo</td>
-								  </tr>
-								  <tr>
-									<th scope="row">2</th>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									<td>@fat</td>
-								  </tr>
-								  <tr>
-									<th scope="row">3</th>
-									<td>Larry</td>
-									<td>the Bird</td>
-									<td>@twitter</td>
-								  </tr>
-								</tbody>
+									{% for n in data %}
+									<tr>
+									  <th scope="row">{{ n.cropId }}</th>
+									  <td>{{ n.name }}</td>
+									  <td>{{n.variety}}</td>
+									  <td>dummy</td>
+									</tr>
+									{% endfor %}
+								  </tbody>
+								
+								
 							  </table>
 						</div>
 						<!--//app-card-body-->
@@ -59,6 +52,17 @@
 
 			</div>
 			<!--//row-->
+			{% for n in data %}
+								<tbody>
+									<tr>
+									  <th scope="row">{{ n.cropId }}</th>
+									  <td>{{ n.name }}</td>
+									  <td>{{n.variety}}</td>
+									  <td></td>
+									</tr>
+									
+								  </tbody>
+								{% endfor %}
 			
 
 	
