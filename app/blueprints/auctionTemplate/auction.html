@@ -6,15 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-    <script type="text/javascript" charset="utf-8">
-        var socket = io();
-        socket.on('connect', function() {
-            socket.send('a');
-        });
-    </script>
+   
     
 </head>
 <body>
     
+
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener('DOMContentLoaded',() =>{
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            socket.on('connect', () => {
+                socket.send("I am Connected");
+            })
+            socket.on('message', data =>{
+                console.log(`${data}`)
+            })
+        })
+        
+        // var socket = io();
+        // socket.on('connect', function() {
+        //     socket.send('a');
+        // });
+    </script>
 </body>
 </html>

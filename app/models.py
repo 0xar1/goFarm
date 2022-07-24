@@ -40,3 +40,8 @@ class Auction(db.Model):
     minPrice = db.Column(db.Integer)
     date = db.Column(db.Integer)
     time = db.Column(db.Integer)
+
+class Timer(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    timerSecondsCount = db.Column(db.Integer,default = 0)
+
