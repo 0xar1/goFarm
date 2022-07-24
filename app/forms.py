@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, PasswordField, StringField, SubmitField, validators
+from wtforms import BooleanField, PasswordField, StringField, SubmitField, validators,SelectField
 from wtforms.validators import Email, InputRequired, Length, EqualTo
 
 
@@ -16,3 +16,8 @@ class RegisterForm(FlaskForm):
     confirm = PasswordField('Confirm Password',validators=[InputRequired()])
     accept_tos = BooleanField('I accept the User Agreement', validators=[InputRequired()])
     submit = SubmitField('Register')
+
+class SellForm(FlaskForm):
+    cropname = SelectField('Crop Name',choices=[])
+    variety = StringField('Variety',validators=[InputRequired(), Length(max=50)])
+    minprice = StringField('Minimum Price',validators=[InputRequired(), Length(max=50)])

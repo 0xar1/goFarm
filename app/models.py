@@ -38,8 +38,7 @@ class Auction(db.Model):
     sellerId = db.Column(db.Integer, db.ForeignKey('user.uid'))
     cropId = db.Column(db.Integer,db.ForeignKey('crops.cropId'))
     minPrice = db.Column(db.Integer)
-    date = db.Column(db.Integer)
-    time = db.Column(db.Integer)
+    datetime = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
 class Timer(db.Model):
     id = db.Column(db.Integer, primary_key = True)

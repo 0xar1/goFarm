@@ -37,6 +37,11 @@ def auction():
 def buy():
     return render_template('buy.html',title="Buy - goFarm",data = Crops.query.all() )
 
+@auctions.route('/sell')
+@login_required
+def sell():
+    return render_template('sell.html',title="Sell - goFarm",data = Crops.query.all())
+
 # @socketio.on('message')
 # def message(data):
 #     print(f"\n\n{data}\n\n")
