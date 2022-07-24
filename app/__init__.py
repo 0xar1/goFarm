@@ -1,13 +1,14 @@
 from flask import Flask 
 from flask_login import LoginManager
 from flask_socketio import SocketIO
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy #ORM
 from flask_migrate import Migrate
 from config import Config
 
 socketio = SocketIO()
 db = SQLAlchemy()
 login = LoginManager()
+
 def create_app(debug=False):
     app = Flask(__name__)
     app.debug = debug

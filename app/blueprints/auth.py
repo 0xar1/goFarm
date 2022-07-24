@@ -6,13 +6,6 @@ from ..forms import LoginForm, RegisterForm
 
 auth = Blueprint('auth', __name__,template_folder='authTemplate')
 
-# app.config['MYSQL_USER'] = 'root'
-# app.config['MYSQL_PASSWORD'] = 'passwordroot69'
-# app.config['MYSQL_DB'] = 'app'
-# app.config['MYSQL_HOST'] = 'localhost'
-
-# mysql = MySQL(app)
-
 
 @auth.route('/register', methods = ['GET', 'POST'])
 def signup():
