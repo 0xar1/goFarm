@@ -17,12 +17,9 @@ auth = Blueprint('auth', __name__,template_folder='authTemplate')
 @auth.route('/register', methods = ['GET', 'POST'])
 def signup():
     form = RegisterForm()
-    print(f"\n\n0\n\n")
     if current_user.is_authenticated:
-        flash('Please Log out first.')
         return redirect(url_for('index'))
     if form.validate_on_submit():
-        print(f"\n\n1\n\n")
         user_exist = User.query.filter_by(email=form.email.data).first()
         if user_exist is None:
             user = User(
@@ -33,10 +30,8 @@ def signup():
             db.session.add(user)
             db.session.commit()
             login_user(user)
-            print(f"\n\n2\n\n")
             return redirect(url_for('dashboard'))
         flash('User with the same email exist')
-        print(f"\n\n3\n\n")
     return render_template('signup.html', title='SignIn - goFarm', form=form)
 
 @auth.route('/login', methods = ['GET', 'POST'])
