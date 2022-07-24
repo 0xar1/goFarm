@@ -13,11 +13,6 @@ class RegisterForm(FlaskForm):
     fullname = StringField('Username',validators=[InputRequired(), Length(max=50)]) 
     email = StringField('Email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
     password = PasswordField('Password', validators=[InputRequired(), Length(max=50)])
-    confirm = PasswordField('Confirm Password',validators=[InputRequired(), EqualTo('password',message='Passwords must match.')])
+    confirm = PasswordField('Confirm Password',validators=[InputRequired()])
     accept_tos = BooleanField('I accept the User Agreement', validators=[InputRequired()])
     submit = SubmitField('Register')
-
-    def validate_email(self, email):
-        a = User.query.filter_by(email=email.data).first()
-        if a is not None:
-            raise ValidationError('Please use a different email address.')

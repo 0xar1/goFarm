@@ -1,6 +1,6 @@
 from flask import Blueprint,redirect,url_for, render_template,flash
 from flask_login import current_user,login_user,logout_user
-from ..models import *
+from ..models import db,User
 from flask import current_app as app
 from ..forms import LoginForm, RegisterForm
 
@@ -17,26 +17,26 @@ auth = Blueprint('auth', __name__,template_folder='authTemplate')
 @auth.route('/register', methods = ['GET', 'POST'])
 def signup():
     form = RegisterForm()
-    # if form.validate_on_submit():
-    #     name = form.fullname.data
-    #     email = form.email.data
-    #     password = str(encrypt(form.password.data))
-    #     verified = 0
-    #     cur = mysql.connection.cursor() 
-    #     cur.execute("SELECT mail FROM user where mail = %s",(email,))
-    #     maillist = cur.fetchone()
-    #     # print(maillist)
-        
-        
-    #     # if maillist[0] == email:
-    #     cur.execute("INSERT INTO user(full_name, mail, password, verified) VALUES(%s, %s, %s,%s)", (name, email, password, verified))
-    #     mysql.connection.commit()
-    #     cur.close
-    #     flash('You are now registered and may login.', 'success')
-    #     # redirect(url_for('dashboard'))
-
-    #     return redirect(url_for('login'))
-        
+    print(f"\n\n0\n\n")
+    if current_user.is_authenticated:
+        flash('Please Log out first.')
+        return redirect(url_for('index'))
+    if form.validate_on_submit():
+        print(f"\n\n1\n\n")
+        user_exist = User.query.filter_by(email=form.email.data).first()
+        if user_exist is None:
+            user = User(
+                full_name = form.fullname.data,
+                email = form.email.data,
+                )
+            user.set_password(form.password.data)
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            print(f"\n\n2\n\n")
+            return redirect(url_for('dashboard'))
+        flash('User with the same email exist')
+        print(f"\n\n3\n\n")
     return render_template('signup.html', title='SignIn - goFarm', form=form)
 
 @auth.route('/login', methods = ['GET', 'POST'])
@@ -48,7 +48,7 @@ def login():
         user = User.query.filter_by(email = form.email.data).first()
         print(user)
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash('Invalid email or password')
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('dashboard'))
@@ -78,3 +78,30 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+
+
+
+
+
+
+   # if form.validate_on_submit():
+    #     name = form.fullname.data
+    #     email = form.email.data
+    #     password = str(encrypt(form.password.data))
+    #     verified = 0
+    #     cur = mysql.connection.cursor() 
+    #     cur.execute("SELECT mail FROM user where mail = %s",(email,))
+    #     maillist = cur.fetchone()
+    #     # print(maillist)
+        
+        
+    #     # if maillist[0] == email:
+    #     cur.execute("INSERT INTO user(full_name, mail, password, verified) VALUES(%s, %s, %s,%s)", (name, email, password, verified))
+    #     mysql.connection.commit()
+    #     cur.close
+    #     flash('You are now registered and may login.', 'success')
+    #     # redirect(url_for('dashboard'))
+
+    #     return redirect(url_for('login'))

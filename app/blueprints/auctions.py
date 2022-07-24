@@ -21,16 +21,17 @@ def auction():
     return render_template('auction.html',title="Auction - goFarm")
 
 
-@socketio.on('message')
-def message(data):
-    print(f"\n\n{data}\n\n")
-    send(data)
-    seconds = 5
-    for i in range(seconds):
-        send(seconds)
-        seconds -= 1
-        sleep(1)
-
+# @socketio.on('message')
+# def message(data):
+    # print(f"\n\n{data}\n\n")
+    # send(data)
+    # seconds = 5
+    # for i in range(seconds):
+    #     send(seconds)
+    #     seconds -= 1
+    #     sleep(1)
+    # print(current_user.uid)
+    
 @auctions.route('/buy')
 @login_required
 def buy():
