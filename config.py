@@ -6,5 +6,5 @@ class Config(object):
      # MYSQL_PASSWORD = 'passwordroot691'
      # MYSQL_DB = 'app'
      # MYSQL_HOST = 'localhost'
-     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:%s@localhost/app' % quote('password69')
+     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:%s@localhost/app' % quote('')
      SQLALCHEMY_TRACK_MODIFICATIONS = False
