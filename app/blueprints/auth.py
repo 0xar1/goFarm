@@ -13,6 +13,7 @@ def signup():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     if form.validate_on_submit():
+        print('\n\nDone\n\n')
         user_exist = User.query.filter_by(email=form.email.data).first()
         if user_exist is None:
             user = User(

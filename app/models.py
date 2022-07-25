@@ -37,12 +37,24 @@ class Crops(db.Model):
 
 class Auction(db.Model):
     aid = db.Column(db.Integer, primary_key = True)
+    sellerName = db.Column(db.String(50))
+    cropName = db.Column(db.String(50))
     sellerId = db.Column(db.Integer, db.ForeignKey('user.uid'))
     cropId = db.Column(db.Integer,db.ForeignKey('crops.cropId'))
+    variety = db.Column(db.String(50))
     minPrice = db.Column(db.Integer)
-    datetime = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    datetime = db.Column(db.DateTime, index=True, nullable = False)
 
-class Timer(db.Model):
-    id = db.Column(db.Integer, primary_key = True)
-    timerSecondsCount = db.Column(db.Integer,default = 0)
+    def __repr__(self):
+        return self.datetime
+
+class CurrentAuction(db.Model):
+    aid = db.Column(db.Integer, primary_key = True)
+    sellerName = db.Column(db.String(50))
+    cropName = db.Column(db.String(50))
+    sellerId = db.Column(db.Integer, db.ForeignKey('user.uid'))
+    cropId = db.Column(db.Integer,db.ForeignKey('crops.cropId'))
+    variety = db.Column(db.String(50))
+    minPrice = db.Column(db.Integer)
+    datetime = db.Column(db.DateTime, index=True, nullable = False)
 

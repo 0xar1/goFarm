@@ -36,13 +36,38 @@ def auction():
 @auctions.route('/buy')
 @login_required
 def buy():
-    return render_template('buy.html',title="Buy - goFarm",data = Crops.query.all() )
+    d = Auction.query.all()
+    return render_template('buy.html',title="Buy - goFarm",data = d )
 
-@auctions.route('/sell')
+@auctions.route('/sell', methods=['GET','POST'])
 @login_required
 def sell():
     form = SellForm()
-    return render_template('sell.html',form = form,title="Sell - goFarm",data = Crops.query.all())
+    # print('\n\n\n')
+    # print(current_user.__dict__)
+    # print('\n\n\n')
+    if form.validate_on_submit():
+        crop_name = form.cropname.data.name
+        crop_variety = form.variety.data
+        crop_minPrice = form.minprice.data
+        crop_dateTime = form.datetime.data
+        auction_exist = Auction.query.filter_by(datetime = crop_dateTime).first()
+        if auction_exist is None:
+            data = Auction(
+                sellerId = current_user.uid,
+                sellerName = current_user.full_name,
+                cropName = crop_name,
+                # cropId  = take from Session 
+                variety = crop_variety,
+                minPrice = crop_minPrice,
+                datetime = crop_dateTime
+            )
+            db.session.add(data)
+            db.session.commit()
+            return redirect(url_for('dashboard'))
+        print('\n\n')
+        flash('')
+    return render_template('sell.html',form = form,title="Sell - goFarm")
 
 # @socketio.on('message')
 # def message(data):

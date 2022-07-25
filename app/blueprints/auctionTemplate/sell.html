@@ -2,6 +2,7 @@
 
 
 {% block body %}
+
 <div class="app-wrapper">
 
 	<div class="app-content pt-3 p-md-3 p-lg-4">
@@ -40,13 +41,20 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="setting-input-2" class="form-label">Minimum Price:</label>
-                                        {{ form.variety(class_ = 'form-control',placeholder="Minimum Price") }}
+                                        {{ form.minprice(class_ = 'form-control',placeholder="Minimum Price") }}
                                         
                                       </div>
                                   <div class="col">
-                                    <input type="text" class="form-control" placeholder="First name">
+                                    <label for="setting-input-2" class="form-label">Select Time and Date:</label>
+                                    {{form.datetime(class_ = 'form-control',id='idnew')}}
                                   </div>
-                                 
+                                  <br><br>
+                                 <div class="row" >
+                                  <div class="col mt-4 " style="text-align: center;" >
+                                    {{ form.submit(class_ ="btn app-btn-primary",style="width:auto;") }}
+
+                                  </div>
+                                </div>
                                 </div>
                               </form>
 
@@ -70,4 +78,16 @@
 
 
 </div>
+<script>
+  function timeChage(){
+    var data = new Date();
+  var month = data.getMonth() + 1
+  var monthrepaired = "0" + month
+  var final = data.getFullYear() + "-" + monthrepaired + "-" + data.getDate() + "T" + data.getHours() + ":" + data.getMinutes()
+  console.log(final)
+  document.getElementById('idnew').min = final;
+  document.getElementById('idnew').value = final;
+  }
+  window.onload = timeChage;
+   </script>python
 {% endblock %}

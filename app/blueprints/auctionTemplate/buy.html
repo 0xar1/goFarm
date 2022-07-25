@@ -20,7 +20,7 @@
 
 								<select class="form-select w-auto">
 									<option selected value="option-1">All</option>
-									<option value="option-2">This week</option>
+									<option value=/login>OPtion redirect</option>
 									<option value="option-3">This month</option>
 									<option value="option-4">Last 3 months</option>
 
@@ -56,18 +56,22 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td class="cell">#15346</td>
-											<td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget
-													volutpat erat</span></td>
-											<td class="cell">John Sanders</td>
-											<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span>
-											</td>
+										{% for n in data %}
+										<tr>				
+
+											<td class="cell">{{ n.cropName}}</td>
+											<td class="cell"><span class="truncate">{{ n.variety }}</span></td>
+											<td class="cell">{{ n.sellerName }}</td>
+											
+											<td class="cell" id ="dt{{ i }}">{{ n.datetime }}</span></td>
+											
 											<td class="cell"><span class="badge bg-success">Pending</span></td>
-											<td class="cell">$259.35</td>
+											<td class="cell">{{ n.minPrice }}</td>
 											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
 											</td>
+											
 										</tr>
+										{% endfor %}
 										
 										<!-- {% for n in data %}
 									<tr>
