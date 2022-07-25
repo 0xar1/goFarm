@@ -10,14 +10,14 @@
 
 			<div class="row g-3 mb-4 align-items-center justify-content-between">
 				<div class="col-auto">
-					<h1 class="app-page-title mb-0">Upcoming Auctions</h1>
+					<h1 class="app-page-title mb-0">Live Auctions</h1>
 				</div>
 				<div class="col-auto">
 					<div class="page-utilities">
 						<div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 							<!--//col-->
 							<div class="col-auto">
-								<a href="/live"><button type="submit" class="btn app-btn-secondary">Live Auctions</button></a> &nbsp;
+								<a href="/buy"><button type="submit" class="btn app-btn-secondary">Upcoming Auctions</button></a> &nbsp;
 							</div>
 						
 						</div>
@@ -58,7 +58,7 @@
 											
 											<td class="cell" id ="dt{{ i }}">{{ n.datetime }}</span></td>
 											
-											<td class="cell"><span class="badge bg-warning">Pending</span></td>
+											<td class="cell"><span class="badge bg-success">On Going</span></td>
 											<td class="cell">{{ n.minPrice }}</td>
 											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
 											</td>

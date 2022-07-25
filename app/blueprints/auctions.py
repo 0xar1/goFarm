@@ -37,7 +37,13 @@ def auction():
 @login_required
 def buy():
     d = Auction.query.all()
-    return render_template('buy.html',title="Buy - goFarm",data = d )
+    return render_template('buy.html',title="Upcoming Auctions - goFarm",data = d )
+
+@auctions.route('/live')
+@login_required
+def live():
+    d = Auction.query.all()
+    return render_template('currentAuctions.html',title="Live Auctions - goFarm",data = d )
 
 @auctions.route('/sell', methods=['GET','POST'])
 @login_required
