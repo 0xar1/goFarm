@@ -7,6 +7,7 @@ from .. import socketio
 # from ..webapp import socketio
 from flask import current_app as app
 from flask_socketio import emit,send
+from ..forms import SellForm
 
 
 auctions = Blueprint('auctions', __name__,template_folder='auctionTemplate')
@@ -40,7 +41,8 @@ def buy():
 @auctions.route('/sell')
 @login_required
 def sell():
-    return render_template('sell.html',title="Sell - goFarm",data = Crops.query.all())
+    form = SellForm()
+    return render_template('sell.html',form = form,title="Sell - goFarm",data = Crops.query.all())
 
 # @socketio.on('message')
 # def message(data):

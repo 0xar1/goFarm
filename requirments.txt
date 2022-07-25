@@ -40,3 +40,4 @@ Werkzeug==2.1.2
 wrapt==1.14.1
 wsproto==1.1.0
 WTForms==3.0.1
+WTForms-SQLAlchemy==0.3

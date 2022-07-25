@@ -16,29 +16,32 @@
 					
 						<div class="app-card app-card-settings shadow-sm p-4">
 							
-                            <form>
+                            <form method="POST">
+                                {{ form.hidden_tag() }} 
                                 <div class="row">
                                     <div class="col">
                                         <label for="setting-input-2" class="form-label">Crop Name:</label>
-                                        <select class="form-select" id="setting-input-2">
+                                        <!-- <select class="form-select" id="setting-input-2">
                                             <option selected="" value="option-1">Select</option>
                                             {% for n in data %}
                                             <option value="option">{{ n.name }}</option>
                                             {% endfor %}
                                            
                                             
-                                      </select>
+                                      </select> -->
+                                      {{ form.cropname(class_ = 'form-select') }}
                                     </div>
                                   <div class="col">
                                     <label for="setting-input-2" class="form-label">Variety:</label>
-                                    <input type="text" class="form-control" placeholder="Variety">
+                                    {{ form.variety(class_ = 'form-control',placeholder='Variety') }}
                                   </div>
                                 </div>
                                     <br>
                                 <div class="row">
                                     <div class="col">
                                         <label for="setting-input-2" class="form-label">Minimum Price:</label>
-                                        <input type="text" class="form-control" placeholder="Minimum Price">
+                                        {{ form.variety(class_ = 'form-control',placeholder="Minimum Price") }}
+                                        
                                       </div>
                                   <div class="col">
                                     <input type="text" class="form-control" placeholder="First name">

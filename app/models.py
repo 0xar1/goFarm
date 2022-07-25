@@ -32,6 +32,8 @@ class Crops(db.Model):
     name = db.Column(db.String(50))
     cropId = db.Column(db.Integer, primary_key = True)
     variety = db.Column(db.String(50))
+    # def __repr__(self):
+        # return self.name
 
 class Auction(db.Model):
     aid = db.Column(db.Integer, primary_key = True)
