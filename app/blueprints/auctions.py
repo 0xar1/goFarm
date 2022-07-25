@@ -16,10 +16,10 @@ auctions = Blueprint('auctions', __name__,template_folder='auctionTemplate')
 # def handle_message(data):
 #     print('received message: ' + data)
 
-@auctions.route('/auction')
+@auctions.route('/auction/<id>')
 @login_required
-def auction():
-    return render_template('auction.html',title="Auction - goFarm")
+def auction(id):
+    return id
 
 
 # @socketio.on('message')
@@ -42,7 +42,7 @@ def buy():
 @auctions.route('/live')
 @login_required
 def live():
-    d = Auction.query.all()
+    d = CurrentAuction.query.all()
     return render_template('currentAuctions.html',title="Live Auctions - goFarm",data = d )
 
 @auctions.route('/sell', methods=['GET','POST'])
