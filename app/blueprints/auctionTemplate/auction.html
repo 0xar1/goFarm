@@ -45,7 +45,7 @@
                                 
                                 <div class="box-cus item1">
                                     <label for="setting-input-2" class="form-label">Min Price:</label>
-                                        <input type="text"  class="col form-control" value="{{ data.minPrice }}" disabled>
+                                        <input type="text"  class="col form-control" id="minPrice" value="{{ data.minPrice }}" disabled>
                         
                                 </div>
                                 <!-- item1 ends here  -->
@@ -56,7 +56,7 @@
                             </div>
                             <!-- item2 ends here  -->
                             <div class="box-cus item3">
-                                <button class="col btn app-btn-primary w-100 theme-btn mx-auto mt-4" id="submitbtn" onclick="submitData()"> Submit</button>
+                                <button class="col btn app-btn-primary w-100 theme-btn mx-auto mt-4" id="submitbtn" onclick="sub()"> Submit</button>
                 
                         </div>
                         <!-- item3 ends here  -->
@@ -92,7 +92,7 @@
 			</div>
 			<!--//tab-content-->
 
-
+ <input type="hidden" name="" id="docid" value="{{ aucid }}">
 
 		</div>
 		<!--//container-fluid-->
@@ -104,6 +104,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 
 <script type="text/javascript" charset="utf-8">
+    docid = document.getElementById('docid').value
+    minrate =  document.getElementById('minPrice').value;
+            var val = document.getElementById('submitval').value;
+    var id = document.URL.split('/').at(-1)
     var temp
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     document.addEventListener('DOMContentLoaded',() =>{
@@ -116,6 +120,12 @@
         // })
         var id = document.URL.split('/').at(-1)
         socket.emit('table',id)
+        // msg.addEventListener("keyup", function(event) {
+        // event.preventDefault();
+        // if (event.keyCode === 13) {
+        //     document.getElementById("submitbtn").click();
+        // }
+        // });
         
         // socket.on('get_table_data',function(data){
         //     temp = data;
@@ -165,9 +175,18 @@
             // document.getElementById('tname') = 
         })  
         var div = document.getElementById('tmain');
-        function submitData(){
+        var sub = function submitData(){
+
+            minrate =  document.getElementById('minPrice').value;
             val = document.getElementById('submitval').value;
-            socket.emit('submitbid',val)
+            console.log('clicked')
+           if(minrate < val){
+            socket.emit('submitbid',val,docid)
+            socket.emit('table',docid)
+           }else{
+            alert('Error')
+           }
+            
         }
     // var socket = io();
     // socket.on('connect', function() {

@@ -54,9 +54,11 @@ def initial(data):
     emit('get_table_data',x,broadcast = True)
 
 @socketio.on('submitbid')
-def submitbid(data):
-    
-    emit('get_table_data',x,json=True,broadcast = True)
+def submitbid(data,id):
+    dbval = tempTable(aid=id,userBid = data,buyerid = current_user.uid,buyerName = current_user.full_name)
+    db.session.add(dbval)
+    db.session.commit()
+    emit('table',id)
      
     
 
