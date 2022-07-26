@@ -1,6 +1,6 @@
 from socket import SocketIO
 from time import sleep
-from flask import Blueprint,redirect,url_for, render_template,flash
+from flask import Blueprint,redirect, request,url_for, render_template,flash
 from flask_login import login_required,current_user
 from ..models import *
 from .. import socketio
@@ -19,19 +19,29 @@ auctions = Blueprint('auctions', __name__,template_folder='auctionTemplate')
 @auctions.route('/auction/<id>')
 @login_required
 def auction(id):
-    return id
+    temp = CurrentAuction.query.filter_by(aid=id).first()
+    if temp is None:
+        return render_template('notfound.html')
 
+    return render_template('auction.html',aucid = id)
 
-# @socketio.on('message')
-# def message(data):
-    # print(f"\n\n{data}\n\n")
-    # send(data)
-    # seconds = 5
-    # for i in range(seconds):
-    #     send(seconds)
-    #     seconds -= 1
-    #     sleep(1)
-    # print(current_user.uid)
+# for testing 
+@auctions.route('/auction')
+@login_required
+def auctionold():
+    
+    return render_template('auctionold.html')
+
+# @auction.route('/auctionnotfound')
+@socketio.on('message')
+def message(data):
+    print(f"\n\n{data}\n\n")
+    send(data)
+    seconds = 5
+    for i in range(seconds):
+        send(seconds)
+        seconds -= 1
+        sleep(1)
     
 @auctions.route('/buy')
 @login_required

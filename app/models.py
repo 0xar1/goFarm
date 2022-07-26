@@ -44,6 +44,7 @@ class Auction(db.Model):
     variety = db.Column(db.String(50))
     minPrice = db.Column(db.Integer)
     datetime = db.Column(db.DateTime, index=True, nullable = False)
+    currentBid = db.Column(db.Integer,default = 0)
 
     def __repr__(self):
         return self.datetime
@@ -57,4 +58,20 @@ class CurrentAuction(db.Model):
     variety = db.Column(db.String(50))
     minPrice = db.Column(db.Integer)
     datetime = db.Column(db.DateTime, index=True, nullable = False)
+    currentBid = db.Column(db.Integer,default = 0)
+    
+class tempTable(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    aid = db.Column(db.Integer)
+    userBid = db.Column(db.Integer,default = 0)
+    buyerid = db.Column(db.Integer)
+    buyerName = db.Column(db.String(50))
+
+class Ledger(db.Model):
+    aid = db.Column(db.Integer, primary_key = True)
+    sellerId = db.Column(db.Integer)
+    buyerId = db.Column(db.Integer)
+    price = db.Column(db.Integer)
+    datetime = db.Column(db.DateTime, index=True, nullable = False)
+
 

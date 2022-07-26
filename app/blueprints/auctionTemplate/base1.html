@@ -14,10 +14,11 @@
     <link rel="shortcut icon" href="favicon.ico">
 
     <!-- FontAwesome JS-->
-    <script defer src="static/assets/plugins/fontawesome/js/all.min.js"></script>
+    <script defer src="{{url_for('static', filename='/static/assets/plugins/fontawesome/js/all.min.js')}}"></script>
+    {% block script %}{% endblock %}
 
     <!-- App CSS -->
-    <link id="theme-style" rel="stylesheet" href="static/assets/css/portal.css">
+    <link id="theme-style" rel="stylesheet" href="{{url_for('static', filename='/assets/css/portal.css')}}">
 
 </head>
 
@@ -327,7 +328,7 @@
     {% block body %} {% endblock %}
 
     <!-- Javascript -->
-    <script src="static/assets/plugins/popper.min.js"></script>
-    <script src="static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{url_for('static', filename='/static/assets/plugins/popper.min.js')}}"></script>
+    <script src="{{url_for('static', filename='/static/assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 
 </body>

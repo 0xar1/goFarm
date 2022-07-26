@@ -1,32 +1,143 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
-   
-    
-</head>
-<body>
-    
+{% extends "base1.html" %}
 
-    <script type="text/javascript" charset="utf-8">
-        document.addEventListener('DOMContentLoaded',() =>{
-            var socket = io.connect('http://' + document.domain + ':' + location.port);
-            socket.on('connect', () => {
-                socket.send("I am Connected");
-            })
-            socket.on('message', data =>{
-                console.log(`${data}`)
-            })
+
+{% block body %}
+<link rel="stylesheet" href="{{url_for('static', filename='/assets/css/auctionpage.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='/assets/css/auction/style.css')}}">
+
+{% block script %}
+
+{% endblock %}
+<div class="app-wrapper">
+
+	<div class="app-content pt-3 p-md-3 p-lg-4">
+		<div class="container-xl">
+
+			<br><br>
+
+
+
+			<div class="tab-content" id="orders-table-tab-content">
+				<div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+					
+						<div class="app-card app-card-settings shadow-sm p-4">
+                            <div class = "main-flex">
+                                <div class="container-1">
+                                
+                                    <div class="box-cus item1">
+                                        <label for="setting-input-2" class="form-label">Current Winner:</label>
+                                            <input type="text"  class="col form-control" disabled>
+                            
+                                    </div>
+                                    <!-- item1 ends here  -->
+                                    <div class="box-cus item2">
+                                        <label for="setting-input-2" class="form-label">Current Winner Price:</label>
+                                        <input type="text" class="col form-control" disabled>
+                        
+                                </div>
+                                <!-- item2 ends here  -->
+                                
+                            <!-- item3 ends here  -->
+                           
+                                </div>  
+
+                            <div class="container-2">
+                                
+                                <div class="box-cus item1">
+                                    <label for="setting-input-2" class="form-label">Min Price:</label>
+                                        <input type="text"  class="col form-control" disabled>
+                        
+                                </div>
+                                <!-- item1 ends here  -->
+                                <div class="box-cus item2">
+                                    <label for="setting-input-2" class="form-label">Enter your bid:</label>
+                                    <input type="text" class="col form-control" id="auction">
+                    
+                            </div>
+                            <!-- item2 ends here  -->
+                            <div class="box-cus item3">
+                                <button class="col btn app-btn-primary w-100 theme-btn mx-auto mt-4" id="inputMain"> Submit</button>
+                
+                        </div>
+                        <!-- item3 ends here  -->
+                       
+                            </div>
+                            <div class="container-3">
+                                <label  ><b>Order Book:</b></label>
+
+                                <div class="table">
+
+                                    <table class="table table-responsive-sm">
+                                      <thead>
+                                        <tr>
+                        
+                                          <th>Username</th>
+                                          <th>Price</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        
+                                         <tr class="alert" role="alert">
+                                        
+                                          
+                                          <td class="border-bottom-0">Garybird_2020</td>
+                                        
+                                            <td class="border-bottom-0">Garybird_2020</td>				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
+                                          </button>
+                                        </td>
+                                        </tr>
+                                        <tr class="alert" role="alert">
+                                        
+                                          
+                                            <td class="border-bottom-0">Garybird_2020</td>
+                                          
+                                              <td class="border-bottom-0">Garybird_2020</td>				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
+                                            </button>
+                                          </td>
+                                          </tr>
+                                      </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- container-cus ends here  -->
+                        </div>
+						</div>
+						<!--//app-card-body-->
+					</div>
+					<!--//app-card-->
+				
+
+				</div>
+				<!--//tab-pane-->
+			</div>
+			<!--//tab-content-->
+
+
+
+		</div>
+		<!--//container-fluid-->
+	</div>
+	<!--//app-content-->
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+
+<script type="text/javascript" charset="utf-8">
+    
+    document.addEventListener('DOMContentLoaded',() =>{
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        socket.on('connect', () => {
+            socket.send("I am Connected");
         })
-        
-        // var socket = io();
-        // socket.on('connect', function() {
-        //     socket.send('a');
-        // });
-    </script>
-</body>
-</html>
+        socket.on('message', data =>{
+            console.log(`${data}`)
+        })
+    })
+    
+    // var socket = io();
+    // socket.on('connect', function() {
+    //     socket.send('a');
+    // });
+</script>
+{% endblock %}
