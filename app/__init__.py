@@ -27,10 +27,10 @@ def create_app(debug=False):
         app.register_blueprint(auth)
         app.register_blueprint(auctions)
 
-    from .models import User,Crops,Auction
+    from .models import User,Crops,Auction,tempTable,Ledger,CurrentAuction
     @app.shell_context_processor
     def make_shell_context():
-        return {'db': db, 'User': User,'Crops': Crops,'Auction': Auction}
+        return {'db': db, 'User': User,'Crops': Crops,'Auction': Auction,'tempTable': tempTable,'Ledger':Ledger,'CurrentAuction':CurrentAuction}
     return app
 
 

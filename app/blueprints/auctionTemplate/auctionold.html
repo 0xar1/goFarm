@@ -21,6 +21,10 @@
             socket.on('message', data =>{
                 console.log(`${data}`)
             })
+            socket.on('get_table_data',function(data){
+            console.log(`data.userBid`)
+        })
+            
         })
         
         // var socket = io();

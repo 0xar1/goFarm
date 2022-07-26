@@ -1,3 +1,4 @@
+import json
 from socket import SocketIO
 from time import sleep
 from flask import Blueprint,redirect, request,url_for, render_template,flash
@@ -22,8 +23,7 @@ def auction(id):
     temp = CurrentAuction.query.filter_by(aid=id).first()
     if temp is None:
         return render_template('notfound.html')
-
-    return render_template('auction.html',aucid = id)
+    return render_template('auction.html',aucid = id,data = temp)
 
 # for testing 
 @auctions.route('/auction')
@@ -32,17 +32,35 @@ def auctionold():
     
     return render_template('auctionold.html')
 
-# @auction.route('/auctionnotfound')
-@socketio.on('message')
-def message(data):
-    print(f"\n\n{data}\n\n")
-    send(data)
-    seconds = 5
-    for i in range(seconds):
-        send(seconds)
-        seconds -= 1
-        sleep(1)
+
+# @socketio.on('message')
+# def message(data):
+#     print(f"\n\n{data}\n\n")
+#     send(data)
+    # seconds = 5
+    # for i in range(seconds):
+    #     send(seconds)
+    #     seconds -= 1
+    #     sleep(1)
+
+@socketio.on('table')
+def initial(data):
+    a = tempTable.query.filter_by(aid = data).order_by(tempTable.userBid.desc()).limit(10).all()
+    x = []
+    for i in a:
+        x.append(i.buyerName)
+        x.append(i.userBid)
+    print(x)
+    emit('get_table_data',x,broadcast = True)
+
+@socketio.on('submitbid')
+def submitbid(data):
     
+    emit('get_table_data',x,json=True,broadcast = True)
+     
+    
+
+
 @auctions.route('/buy')
 @login_required
 def buy():

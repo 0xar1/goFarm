@@ -25,14 +25,14 @@
                                 <div class="container-1">
                                 
                                     <div class="box-cus item1">
-                                        <label for="setting-input-2" class="form-label">Current Winner:</label>
-                                            <input type="text"  class="col form-control" disabled>
+                                        <label for="setting-input-2" class="form-label" >Current Winner:</label>
+                                            <input type="text"  class="col form-control" id="winnerName" value=""disabled>
                             
                                     </div>
                                     <!-- item1 ends here  -->
                                     <div class="box-cus item2">
-                                        <label for="setting-input-2" class="form-label">Current Winner Price:</label>
-                                        <input type="text" class="col form-control" disabled>
+                                        <label for="setting-input-2" class="form-label" >Current Winner Price:</label>
+                                        <input type="text" class="col form-control" id="winnerPrice" disabled>
                         
                                 </div>
                                 <!-- item2 ends here  -->
@@ -45,18 +45,18 @@
                                 
                                 <div class="box-cus item1">
                                     <label for="setting-input-2" class="form-label">Min Price:</label>
-                                        <input type="text"  class="col form-control" disabled>
+                                        <input type="text"  class="col form-control" value="{{ data.minPrice }}" disabled>
                         
                                 </div>
                                 <!-- item1 ends here  -->
                                 <div class="box-cus item2">
                                     <label for="setting-input-2" class="form-label">Enter your bid:</label>
-                                    <input type="text" class="col form-control" id="auction">
+                                    <input type="text" class="col form-control" id="submitval">
                     
                             </div>
                             <!-- item2 ends here  -->
                             <div class="box-cus item3">
-                                <button class="col btn app-btn-primary w-100 theme-btn mx-auto mt-4" id="inputMain"> Submit</button>
+                                <button class="col btn app-btn-primary w-100 theme-btn mx-auto mt-4" id="submitbtn" onclick="submitData()"> Submit</button>
                 
                         </div>
                         <!-- item3 ends here  -->
@@ -75,27 +75,7 @@
                                           <th>Price</th>
                                         </tr>
                                       </thead>
-                                      <tbody>
-                                        
-                                         <tr class="alert" role="alert">
-                                        
-                                          
-                                          <td class="border-bottom-0">Garybird_2020</td>
-                                        
-                                            <td class="border-bottom-0">Garybird_2020</td>				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-                                          </button>
-                                        </td>
-                                        </tr>
-                                        <tr class="alert" role="alert">
-                                        
-                                          
-                                            <td class="border-bottom-0">Garybird_2020</td>
-                                          
-                                              <td class="border-bottom-0">Garybird_2020</td>				            	<span aria-hidden="true"><i class="fa fa-close"></i></span>
-                                            </button>
-                                          </td>
-                                          </tr>
-                                      </tbody>
+                                      <tbody id="tmain"></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -124,17 +104,71 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 
 <script type="text/javascript" charset="utf-8">
-    
+    var temp
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
     document.addEventListener('DOMContentLoaded',() =>{
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
-        socket.on('connect', () => {
-            socket.send("I am Connected");
-        })
-        socket.on('message', data =>{
-            console.log(`${data}`)
-        })
+        
+        // socket.on('connect', () => {
+        //     socket.send("I am Connected");
+        // })
+        // socket.on('message', data =>{
+        //     console.log(`${data}`)
+        // })
+        var id = document.URL.split('/').at(-1)
+        socket.emit('table',id)
+        
+        // socket.on('get_table_data',function(data){
+        //     temp = data;
+        //     console.log(temp)
+        //     for(let i=0;i < temp.length;i = i+2){
+                
+        //     }
+        //     // document.getElementById('tname') = 
+        // })
     })
-    
+
+    socket.on('get_table_data',function(data){
+            temp = data;
+            console.log(temp);
+            if(document.getElementById("tmain").innerHTML){
+                document.getElementById("tmain").innerHTML = "";
+            }
+            function add1(i){
+                var tr = document.createElement("tr");
+                tr.className = "alert";
+                var td = document.createElement("td");
+                td.className = "border-bottom-0";
+                
+                var value1 = document.createTextNode(temp[i]);
+                td.appendChild(value1);
+                tr.append(td);
+
+                var td2 = document.createElement("td");
+                td2.className = "border-bottom-0";
+                var value2 = document.createTextNode(temp[i+1]);
+                td2.appendChild(value2);
+                tr.append(td2);
+                
+                document.getElementById("tmain").appendChild(tr)
+            }
+            for(let i=0;i < temp.length;i = i+2){
+                // $("tmain").append(" <td class="border-bottom-0">" + temp[i] + "</td>");
+                // $("tmain").append(" <td class="border-bottom-0">" + temp[i+1] + "</td>");
+                add1(i);
+               
+                
+
+            }
+            console.log("Connection Incomming")
+            document.getElementById("winnerName").value = temp[0];
+            document.getElementById("winnerPrice").value = temp[1];
+            // document.getElementById('tname') = 
+        })  
+        var div = document.getElementById('tmain');
+        function submitData(){
+            val = document.getElementById('submitval').value;
+            socket.emit('submitbid',val)
+        }
     // var socket = io();
     // socket.on('connect', function() {
     //     socket.send('a');
