@@ -25,6 +25,14 @@ def auction(id):
         return render_template('notfound.html')
     return render_template('auction.html',aucid = id,data = temp)
 
+@auctions.route('/user/<id>')
+@login_required
+def user(id):
+    temp = User.query.filter_by(uid=id).first()
+    if temp is None:
+        return render_template('notfound.html')
+    return render_template('user.html')
+
 # for testing 
 @auctions.route('/auction')
 @login_required
