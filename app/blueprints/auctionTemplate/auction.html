@@ -180,11 +180,11 @@
             minrate =  document.getElementById('minPrice').value;
             val = document.getElementById('submitval').value;
             console.log('clicked')
-           if(minrate < val){
-            socket.emit('submitbid',val,docid)
-            socket.emit('table',docid)
+            if(minrate < val){
+            socket.emit('submitbid',val,docid);
+            socket.emit('table',docid);
            }else{
-            alert('Error')
+            alert('Error!!! Enter Price Greater Than Minimum Price');
            }
             
         }
