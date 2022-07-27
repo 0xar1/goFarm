@@ -116,3 +116,11 @@ def sell():
 #         seconds -= 1
 #         sleep(1)
 #     print(current_user.uid)
+
+@auctions.route('/ledger')
+@login_required
+def ledger():
+    d = Auction.query.all()
+
+    c = tempTable.query.all()
+    return render_template('ledger.html',title="Auction History - goFarm",auction = d,temp = c )
