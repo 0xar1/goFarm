@@ -10,6 +10,8 @@ class User(UserMixin,db.Model):
     password = db.Column(db.String(200))
     verified = db.Column(db.Boolean, default=False, nullable=False)
     full_name = db.Column(db.String(200))
+    website = db.Column(db.String(200),default = "user@gofarm.in")
+    location = db.Column(db.String(200),default = "India")
     created_at = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     sellerId = db.relationship('Auction', backref='user')
 

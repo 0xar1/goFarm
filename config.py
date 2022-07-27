@@ -2,6 +2,7 @@ import os
 from urllib.parse import quote
 class Config(object):
      SECRET_KEY = os.environ.get('SECRET_KEY') or 'i123he98skdq'
+     UPLOAD_FOLDER = 'static/uploads/'
      # MYSQL_USER = 'root'
      # MYSQL_PASSWORD = 'passwordroot691'
      # MYSQL_DB = 'app'
