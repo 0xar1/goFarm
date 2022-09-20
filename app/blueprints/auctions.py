@@ -92,8 +92,8 @@ def sell():
         if auction_exist is None:
             data = Auction(
                 sellerId = current_user.uid,
-                sellerName = current_user.full_name,
-                cropName = crop_name,
+                # sellerName = current_user.full_name,
+                # cropName = crop_name,
                 # cropId  = take from Session 
                 variety = crop_variety,
                 minPrice = crop_minPrice,
