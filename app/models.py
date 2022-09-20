@@ -39,8 +39,8 @@ class Crops(db.Model):
 
 class Auction(db.Model):
     aid = db.Column(db.Integer, primary_key = True)
-    sellerName = db.Column(db.String(50))
-    cropName = db.Column(db.String(50))
+    # sellerName = db.Column(db.String(50))
+    # cropName = db.Column(db.String(50))
     sellerId = db.Column(db.Integer, db.ForeignKey('user.uid'))
     cropId = db.Column(db.Integer,db.ForeignKey('crops.cropId'))
     variety = db.Column(db.String(50))
@@ -53,8 +53,8 @@ class Auction(db.Model):
 
 class CurrentAuction(db.Model):
     aid = db.Column(db.Integer, primary_key = True)
-    sellerName = db.Column(db.String(50))
-    cropName = db.Column(db.String(50))
+    # sellerName = db.Column(db.String(50))
+    # cropName = db.Column(db.String(50))
     sellerId = db.Column(db.Integer, db.ForeignKey('user.uid'))
     cropId = db.Column(db.Integer,db.ForeignKey('crops.cropId'))
     variety = db.Column(db.String(50))

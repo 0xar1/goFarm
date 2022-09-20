@@ -4,12 +4,12 @@ from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy #ORM
 from flask_migrate import Migrate
 from config import Config
-from flask_mail import Mail
+# from flask_mail import Mail
 
 socketio = SocketIO()
 db = SQLAlchemy()
 login = LoginManager()
-mail = Mail()
+# mail = Mail()pip
 def create_app(debug=False):
     app = Flask(__name__)
     app.debug = debug
@@ -23,7 +23,7 @@ def create_app(debug=False):
     login.init_app(app)
     login.login_view = 'auth.login'
     socketio.init_app(app)
-    mail.init_app(app)
+    # mail.init_app(app)
     with app.app_context():
         from . import routes
         app.register_blueprint(auth)
