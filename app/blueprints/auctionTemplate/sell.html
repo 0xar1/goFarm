@@ -36,6 +36,10 @@
                                     <label for="setting-input-2" class="form-label">Variety:</label>
                                     {{ form.variety(class_ = 'form-control',placeholder='Variety') }}
                                   </div>
+                                  <div class="col">
+                                    <label for="setting-input-2" class="form-label">Amount:</label>
+                                    {{ form.amount(class_ = 'form-control',placeholder='Amount in KGs') }}
+                                  </div>
                                 </div>
                                     <br>
                                 <div class="row">
@@ -83,7 +87,8 @@
     var data = new Date();
   var month = data.getMonth() + 1
   var monthrepaired = "0" + month
-  var final = data.getFullYear() + "-" + monthrepaired + "-" + data.getDate() + "T" + data.getHours() + ":" + data.getMinutes()
+  var mins = ('0'+data.getMinutes()).slice(-2);
+  var final = data.getFullYear() + "-" + monthrepaired + "-" + data.getDate() + "T" + data.getHours() + ":" + mins
   console.log(final)
   document.getElementById('idnew').min = final;
   document.getElementById('idnew').value = final;

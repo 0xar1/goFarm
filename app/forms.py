@@ -26,6 +26,7 @@ def cropname_choice():
 class SellForm(FlaskForm):
     cropname = QuerySelectField(query_factory=cropname_choice, allow_blank=False,get_label = 'name')
     variety = StringField('Variety',validators=[InputRequired(), Length(max=50)])
+    amount = StringField('Amount',validators=[InputRequired(), Length(max=50)])
     minprice = StringField('Minimum Price',validators=[InputRequired(), Length(max=50)])
     datetime = DateTimeLocalField('Date (DD-MM-YYYY)', format='%Y-%m-%dT%H:%M')
     submit = SubmitField('Submit')

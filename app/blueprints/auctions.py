@@ -86,6 +86,7 @@ def sell():
     if form.validate_on_submit():
         crop_name = form.cropname.data.name
         crop_variety = form.variety.data
+        crop_amount = form.amount.data
         crop_minPrice = form.minprice.data
         crop_dateTime = form.datetime.data
         auction_exist = Auction.query.filter_by(datetime = crop_dateTime).first()
@@ -96,6 +97,7 @@ def sell():
                 # cropName = crop_name,
                 # cropId  = take from Session 
                 variety = crop_variety,
+                amount = crop_amount,
                 minPrice = crop_minPrice,
                 datetime = crop_dateTime
             )
