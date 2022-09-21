@@ -157,7 +157,7 @@
         //send the bid data to server
         minRate = document.getElementById("minPrice").value;
         currentBidValue = document.getElementById("submitval").value;
-        if(minRate < currentBidValue){
+        if(currentBidValue > minRate){
             socket.emit('bidData',{'id':id,'userBid':data});
             // socket.emit('reloadData',id);
             document.getElementById("submitval").value = "";
