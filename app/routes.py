@@ -22,13 +22,22 @@ def dashboard():
 @app.route('/user/<id>')
 @login_required
 def user(id):
-    temp = User.query.filter_by(uid=id).first()
-    if temp is None:
-        return render_template('notfound.html')
-    return render_template('/user/user.html',data = temp,title='Dashboard - goFarm')
+    print(current_user.uid,":",id)
+    print(type(current_user.uid))
+    print(type(id))
+    if (str(current_user.uid) != id):
+        return "Unauthorized"
+    else:
+        temp = User.query.filter_by(uid=id).first()
+    # if temp is None:
+    #     return render_template('notfound.html')
+        return render_template('/user/user.html',data = temp,title='Dashboard - goFarm')
 
 @app.route('/logo')
 def logo():
     # return render_template('dashboard.html', title='Dashboard')
     return render_template('/new/logo.html'  )
 
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html")

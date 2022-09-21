@@ -67,6 +67,7 @@ def trade(tradeid):
 def bidvalue(data):
     id = data['id']
     userBid = data['userBid']
+    minRate = data['minRate']
     print("\n\n",id,":",userBid,"\n\n")
     inserData = tempTable(aid=id,userBid = userBid, buyerid = current_user.uid,buyerName = current_user.full_name)
     db.session.add(inserData)
@@ -124,11 +125,20 @@ def live():
 @login_required
 def sell():
     form = SellForm()
+    temp = []
+    k = db.session.query(Crops.name).distinct(Crops.name).all()
+    for i in range(0,len(k)):
+        print(k[i].name)
+        a = k[i].name
+        temp.append(a)
+
+    form.cropname.choices = temp
+
     # print('\n\n\n')
     # print(current_user.__dict__)
     # print('\n\n\n')
     if form.validate_on_submit():
-        crop_name = form.cropname.data.name
+        crop_name = form.cropname.data
         crop_variety = form.variety.data
         crop_amount = form.amount.data
         crop_minPrice = form.minprice.data

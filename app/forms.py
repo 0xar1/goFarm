@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, PasswordField, StringField,DateTimeField, SubmitField, validators,ValidationError
+from wtforms import BooleanField, PasswordField, StringField,DateTimeField, SubmitField, validators,ValidationError,SelectField
 from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.fields import DateTimeLocalField
 from wtforms.validators import Email, InputRequired, Length, EqualTo
@@ -22,10 +22,18 @@ class RegisterForm(FlaskForm):
 
 def cropname_choice():
     return Crops.query.distinct('name')
+# def variety_choice():
+#     return
+# def mod_choice():
+#     k = db.session.query(Crops.name).distinct(Crops.name).all()
+#     return k
 
 class SellForm(FlaskForm):
-    cropname = QuerySelectField(query_factory=cropname_choice, allow_blank=False,get_label = 'name')
+    # cropname = QuerySelectField(query_factory=cropname_choice, allow_blank=False,get_label = 'name')
+    # k = db.session.query(Crops.name).distinct(Crops.name).all()
+    cropname = SelectField('Crop Name',coerce=str)
     variety = StringField('Variety',validators=[InputRequired(), Length(max=50)])
+    # variety = QuerySelectField(query_factory=cropname_choice, allow_blank=False,get_label = 'name')
     amount = StringField('Amount',validators=[InputRequired(), Length(max=50)])
     minprice = StringField('Minimum Price',validators=[InputRequired(), Length(max=50)])
     datetime = DateTimeLocalField('Date (DD-MM-YYYY)', format='%Y-%m-%dT%H:%M')
