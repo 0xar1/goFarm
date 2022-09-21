@@ -88,7 +88,8 @@
   var month = data.getMonth() + 1
   var monthrepaired = "0" + month
   var mins = ('0'+data.getMinutes()).slice(-2);
-  var final = data.getFullYear() + "-" + monthrepaired + "-" + data.getDate() + "T" + data.getHours() + ":" + mins
+  var hours = ('0'+data.getHours()).slice(-2);
+  var final = data.getFullYear() + "-" + monthrepaired + "-" + data.getDate() + "T" + hours + ":" + mins
   console.log(final)
   document.getElementById('idnew').min = final;
   document.getElementById('idnew').value = final;
