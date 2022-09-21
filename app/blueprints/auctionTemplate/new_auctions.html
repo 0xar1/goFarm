@@ -112,14 +112,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
 <script type="text/javascript" charset="utf-8">
    document.addEventListener('DOMContentLoaded',() =>{
-    document.querySelector('#submitbtn').onclick = () =>{
-        const id = document.URL.split('/').at(-1)
-        data = document.getElementById('submitval').value;
 
-        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
-        
-        //update the order book after a bid is added to db
-        socket.on('reloadTable',function(data){
+    var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+    socket.on('reloadTable',function(data){
             console.log("Connection Incomming")
                 temp = data;
                 console.log(temp);
@@ -151,6 +146,14 @@
 
 
         });
+    document.querySelector('#submitbtn').onclick = () =>{
+        const id = document.URL.split('/').at(-1)
+        data = document.getElementById('submitval').value;
+
+        
+        
+        //update the order book after a bid is added to db
+        
         //send the bid data to server
         minRate = document.getElementById("minPrice").value;
         currentBidValue = document.getElementById("submitval").value;
