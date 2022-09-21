@@ -133,6 +133,7 @@ def sell():
         crop_amount = form.amount.data
         crop_minPrice = form.minprice.data
         crop_dateTime = form.datetime.data
+        cropId = db.session.query(Crops.cropId).filter(Crops.name == crop_name).filter(Crops.variety == crop_variety).first()
         auction_exist = Auction.query.filter_by(datetime = crop_dateTime).first()
         if auction_exist is None:
             data = Auction(
@@ -140,6 +141,7 @@ def sell():
                 # sellerName = current_user.full_name,
                 # cropName = crop_name,
                 # cropId  = take from Session 
+                cropId = cropId[0],
                 variety = crop_variety,
                 amount = crop_amount,
                 minPrice = crop_minPrice,
