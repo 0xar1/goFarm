@@ -40,6 +40,7 @@
 									<thead>
 										<tr>
 											<th class="cell">Crop</th>
+											<th class="cell">Amount</th>
 											<th class="cell">Variety</th>
 											<th class="cell">Seller</th>
 											<th class="cell">Date</th>
@@ -49,18 +50,19 @@
 										</tr>
 									</thead>
 									<tbody>
-										{% for n in data %}
+										{% for i,j,k in data %}
 										<tr>				
 
-											<td class="cell">{{ n.cropName}}</td>
-											<td class="cell"><span class="truncate">{{ n.variety }}</span></td>
-											<td class="cell">{{ n.sellerName }}</td>
+											<td class="cell">{{ j.name}}</td>
+											<td class="cell">{{ i.amount}}</td>
+											<td class="cell"><span class="truncate">{{ i.variety }}</span></td>
+											<td class="cell">{{ k.full_name }}</td>
 											
-											<td class="cell" id ="dt{{ i }}">{{ n.datetime }}</span></td>
+											<td class="cell" id ="dt{{ i }}">{{ i.datetime }}</span></td>
 											
-											<td class="cell"><span class="badge bg-success">On Going</span></td>
-											<td class="cell">{{ n.minPrice }}</td>
-											<td class="cell"><a class="badge bg-success" href="/auction/{{n.aid}}">Participate</a>
+											<td class="cell"><span class="badge bg-warning">Pending</span></td>
+											<td class="cell">{{ i.minPrice }}</td>
+											<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a>
 											</td>
 											
 										</tr>

@@ -67,13 +67,16 @@ def submitbid(data,id):
 @auctions.route('/buy')
 @login_required
 def buy():
-    d = Auction.query.all()
+    # d = Auction.query.all()
+    d = db.session.query(Auction,Crops,User).filter(Auction.sellerId == User.uid).filter(Auction.cropId == Crops.cropId).all()
     return render_template('buy.html',title="Upcoming Auctions - goFarm",data = d )
 
 @auctions.route('/live')
 @login_required
 def live():
-    d = CurrentAuction.query.all()
+    # d = CurrentAuction.query.all()
+    d = db.session.query(CurrentAuction,Crops,User).filter(CurrentAuction.sellerId == User.uid).filter(CurrentAuction.cropId == Crops.cropId).all()
+
     return render_template('currentAuctions.html',title="Live Auctions - goFarm",data = d )
 
 @auctions.route('/sell', methods=['GET','POST'])

@@ -49,8 +49,7 @@ class Auction(db.Model):
     datetime = db.Column(db.DateTime, index=True, nullable = False)
     currentBid = db.Column(db.Integer,default = 0)
 
-    def __repr__(self):
-        return self.datetime
+    
 
 class CurrentAuction(db.Model):
     aid = db.Column(db.Integer, primary_key = True)
