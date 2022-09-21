@@ -1,7 +1,7 @@
 import json
 from socket import SocketIO
 from time import sleep
-from flask import Blueprint,redirect, request,url_for, render_template,flash
+from flask import Blueprint,redirect, request,url_for, render_template,flash,request
 from flask_login import login_required,current_user
 from ..models import *
 from .. import socketio
@@ -26,12 +26,31 @@ def auction(id):
     return render_template('auction.html',aucid = id,data = temp)
 
 
-# for testing 
-@auctions.route('/auction')
+# new auction here 
+@auctions.route('/trade/<tradeid>')
 @login_required
-def auctionold():
+def trade(tradeid):
+    tempData = tempTable.query.filter(tempTable.aid == tradeid).order_by(tempTable.userBid.desc()).limit(10).all()
+    temp = CurrentAuction.query.filter_by(aid=tradeid).first()
+    # print("\n\n",tempData[1],"\n\n")
+    if tempData:
+        minPrice = tempData[0].userBid
+        winner = tempData[0].buyerName
+    else:
+        minPrice = ""
+        winner = ""
+    if temp is None:
+        return render_template('notfound.html')
+    return render_template('new_auctions.html', tableData = tempData,auctiondata = temp,minPrice = minPrice,winner = winner)
+
+
+
+# for testing 
+# @auctions.route('/auction')
+# @login_required
+# def auctionold():
     
-    return render_template('auctionold.html')
+#     return render_template('auctionold.html')
 
 
 # @socketio.on('message')
@@ -43,6 +62,31 @@ def auctionold():
     #     send(seconds)
     #     seconds -= 1
     #     sleep(1)
+
+@socketio.on('bidData')
+def bidvalue(data):
+    id = data['id']
+    userBid = data['userBid']
+    print("\n\n",id,":",userBid,"\n\n")
+    inserData = tempTable(aid=id,userBid = userBid, buyerid = current_user.uid,buyerName = current_user.full_name)
+    db.session.add(inserData)
+    db.session.commit()
+    temp = []
+    fetchData = tempTable.query.filter_by(aid = id).order_by(tempTable.userBid.desc()).limit(10).all()
+    for i in fetchData:
+        temp.append(i.buyerName)
+        temp.append(i.userBid)
+    emit('reloadTable',temp,broadcast=True)
+
+@socketio.on('reloadData')
+def reload(data):
+    id = data
+    temp = []
+    fetchData = tempTable.query.filter_by(aid = id).order_by(tempTable.userBid.desc()).limit(10).all()
+    for i in fetchData:
+        temp.append(i.buyerName)
+        temp.append(i.userBid)
+    emit('reloadTable',temp,broadcast = True)
 
 @socketio.on('table')
 def initial(data):
@@ -60,9 +104,6 @@ def submitbid(data,id):
     db.session.add(dbval)
     db.session.commit()
     emit('table',id)
-     
-    
-
 
 @auctions.route('/buy')
 @login_required

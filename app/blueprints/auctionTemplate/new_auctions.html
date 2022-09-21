@@ -1,0 +1,176 @@
+{% extends "base1.html" %}
+
+
+{% block body %}
+<link rel="stylesheet" href="{{url_for('static', filename='/assets/css/auctionpage.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='/assets/css/auction/style.css')}}">
+
+{% block script %}
+
+{% endblock %}
+<div class="app-wrapper">
+
+	<div class="app-content pt-3 p-md-3 p-lg-4">
+		<div class="container-xl">
+
+			<br><br>
+
+
+
+			<div class="tab-content" id="orders-table-tab-content">
+				<div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+					
+						<div class="app-card app-card-settings shadow-sm p-4">
+                            <div class = "main-flex">
+                                <div class="container-1">
+                                
+                                    <div class="box-cus item1">
+                                        <label for="setting-input-2" class="form-label" >Current Winner:</label>
+                                            <input type="text"  class="col form-control" id="winnerName" value="{{ winner }}"disabled>
+                            
+                                    </div>
+                                    <!-- item1 ends here  -->
+                                    <div class="box-cus item2">
+                                        <label for="setting-input-2" class="form-label" >Current Winner Price:</label>
+                                        <input type="text" class="col form-control" id="winnerPrice" value = "{{ minPrice }}" disabled>
+                        
+                                </div>
+                                <!-- item2 ends here  -->
+                                
+                            <!-- item3 ends here  -->
+                           
+                                </div>  
+
+                            <div class="container-2">
+                                
+                                <div class="box-cus item1">
+                                    <label for="setting-input-2" class="form-label">Min Price:</label>
+                                        <input type="text"  class="col form-control" id="minPrice" value="{{ auctiondata.minPrice }}" disabled>
+                        
+                                </div>
+                                <!-- item1 ends here  -->
+                                <div class="box-cus item2">
+                                    <label for="setting-input-2" class="form-label">Enter your bid:</label>
+                                    <input type="text" class="col form-control" id="submitval">
+                    
+                            </div>
+                            <!-- item2 ends here  -->
+                            <div class="box-cus item3">
+                                <!-- <button class="col btn app-btn-primary w-100 theme-btn mx-auto mt-4" id="submitbtn" onclick="sub()"> Submit</button> -->
+                                <button type="button" id="submitbtn" class="col btn app-btn-primary w-100 theme-btn mx-auto mt-4" onclick="this.blur();">Success</button>
+                        </div>
+                        <!-- item3 ends here  -->
+                       
+                            </div>
+                            <div class="container-3">
+                                <label  ><b>Order Book:</b></label>
+
+                                <div class="table">
+
+                                    <table class="table table-responsive-sm">
+                                      <thead>
+                                        <tr>
+                        
+                                          <th>Username</th>
+                                          <th>Price</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody id="tmain">
+                                      {% for i in tableData %}
+                                      <tr>
+                                        
+                                            <td class="border-bottom-0">{{ i.buyerName }}</td>
+                                            <td class="border-bottom-0">{{ i.userBid }}</td>
+                                        
+                                      </tr>
+                                      {% endfor %}
+                                    </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- container-cus ends here  -->
+                        </div>
+						</div>
+						<!--//app-card-body-->
+					</div>
+					<!--//app-card-->
+				
+
+				</div>
+				<!--//tab-pane-->
+			</div>
+			<!--//tab-content-->
+
+
+		</div>
+		<!--//container-fluid-->
+	</div>
+	<!--//app-content-->
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+   document.addEventListener('DOMContentLoaded',() =>{
+    document.querySelector('#submitbtn').onclick = () =>{
+        const id = document.URL.split('/').at(-1)
+        data = document.getElementById('submitval').value;
+
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+        
+        //update the order book after a bid is added to db
+        socket.on('reloadTable',function(data){
+            console.log("Connection Incomming")
+                temp = data;
+                console.log(temp);
+                document.getElementById("tmain").innerHTML = "";
+                function modifyOrderBook(i){
+                    var tr = document.createElement("tr");
+                    tr.className = "alert";
+                    var td = document.createElement("td");
+                    td.className = "border-bottom-0";
+                
+                    var value1 = document.createTextNode(temp[i]);
+                    td.appendChild(value1);
+                    tr.append(td);
+
+                    var td2 = document.createElement("td");
+                    td2.className = "border-bottom-0";
+                    var value2 = document.createTextNode(temp[i+1]);
+                    td2.appendChild(value2);
+                    tr.append(td2);
+                
+                    document.getElementById("tmain").appendChild(tr)
+                }
+                for(let i=0;i < temp.length;i = i+2){
+                    modifyOrderBook(i);
+                }
+                //modifying winner name and winner price
+                document.getElementById("winnerName").value = temp[0];
+                document.getElementById("winnerPrice").value = temp[1];
+
+
+        });
+        //send the bid data to server
+        minRate = document.getElementById("minPrice").value;
+        currentBidValue = document.getElementById("submitval").value;
+        if(minRate < currentBidValue){
+            socket.emit('bidData',{'id':id,'userBid':data});
+            // socket.emit('reloadData',id);
+            document.getElementById("submitval").value = "";
+        }else{
+            alert('Error!!! Enter Price Greater Than Minimum Price');
+        }
+
+        
+
+
+        const textField = document.getElementById("submitbtn");
+        setTimeout(() => {
+            textField.blur();
+         }, 200);
+    };
+
+   })
+</script>
+{% endblock %}
