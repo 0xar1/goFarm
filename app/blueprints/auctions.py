@@ -33,7 +33,7 @@ def auction(id):
 def trade(tradeid):
     tempData = tempTable.query.filter(tempTable.aid == tradeid).order_by(tempTable.userBid.desc()).limit(10).all()
     temp = CurrentAuction.query.filter_by(aid=tradeid).first()
-    k = db.session.query(CurrentAuction.datetime).filter(CurrentAuction.aid == 1).first()
+    k = db.session.query(CurrentAuction.datetime).filter(CurrentAuction.aid == tradeid).first()
     a = k.datetime
     time = a + timedelta(hours=1)
     # print("\n\n",tempData[1],"\n\n")
