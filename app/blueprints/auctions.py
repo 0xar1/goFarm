@@ -9,6 +9,7 @@ from .. import socketio
 from flask import current_app as app
 from flask_socketio import emit,send
 from ..forms import SellForm
+from datetime import datetime, timedelta
 
 
 auctions = Blueprint('auctions', __name__,template_folder='auctionTemplate')
@@ -32,6 +33,9 @@ def auction(id):
 def trade(tradeid):
     tempData = tempTable.query.filter(tempTable.aid == tradeid).order_by(tempTable.userBid.desc()).limit(10).all()
     temp = CurrentAuction.query.filter_by(aid=tradeid).first()
+    k = db.session.query(CurrentAuction.datetime).filter(CurrentAuction.aid == 1).first()
+    a = k.datetime
+    time = a + timedelta(hours=1)
     # print("\n\n",tempData[1],"\n\n")
     if tempData:
         minPrice = tempData[0].userBid
@@ -41,7 +45,7 @@ def trade(tradeid):
         winner = ""
     if temp is None:
         return render_template('notfound.html')
-    return render_template('new_auctions.html', tableData = tempData,auctiondata = temp,minPrice = minPrice,winner = winner)
+    return render_template('new_auctions.html', tableData = tempData,time = time,auctiondata = temp,minPrice = minPrice,winner = winner)
 
 
 
