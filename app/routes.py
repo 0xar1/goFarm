@@ -26,7 +26,7 @@ def user(id):
     print(type(current_user.uid))
     print(type(id))
     if (str(current_user.uid) != id):
-        return "Unauthorized"
+        return redirect(url_for('unauth'))
     else:
         temp = User.query.filter_by(uid=id).first()
     # if temp is None:
@@ -40,4 +40,8 @@ def logo():
 
 @app.errorhandler(404)
 def not_found(e):
-    return render_template("404.html")
+    return render_template("404.html", title = "Oops, Page not found!")
+
+@app.route('/unauthorized')
+def unauth():
+    return render_template("unauth.html",title="No Permission")
