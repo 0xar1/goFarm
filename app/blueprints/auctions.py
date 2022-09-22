@@ -34,15 +34,17 @@ def trade(tradeid):
     tempData = tempTable.query.filter(tempTable.aid == tradeid).order_by(tempTable.userBid.desc()).limit(10).all()
     temp = CurrentAuction.query.filter_by(aid=tradeid).first()
     k = db.session.query(CurrentAuction.datetime).filter(CurrentAuction.aid == tradeid).first()
-    a = k.datetime
-    time = a + timedelta(hours=1)
+    
     # print("\n\n",tempData[1],"\n\n")
     if tempData:
         minPrice = tempData[0].userBid
         winner = tempData[0].buyerName
+        a = k.datetime
+        time = a + timedelta(hours=1)
     else:
         minPrice = ""
         winner = ""
+        time = ""
     if temp is None:
         return render_template('notfound.html')
     return render_template('new_auctions.html', tableData = tempData,time = time,auctiondata = temp,minPrice = minPrice,winner = winner)
